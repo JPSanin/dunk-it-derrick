@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Start view class 
+ * Info view class 
 
  * @author: Juan P. Sanin
 
@@ -13,37 +13,37 @@ import processing.core.PImage;
  */
 
 
-public class StartView {
+public class InfoView {
 
-	private PImage background, clouds, menuItems;
-	private PImage infoButton, playButton;
+	private PImage background, clouds, infoItems;
+	private PImage backButton, movementButton;
 	private int cloudsX1, cloudsX2;
 	private PApplet app;
 
 
 	/** 
 	 * 
-	 *	Constructor method for StartView <br>
+	 *	Constructor method for InfoView <br>
 		<b> pre: </b> <br>
-		<b> post: </b> Creates the visualization of the Start screen<br>
+		<b> post: </b> Creates the visualization of the info screen<br>
 	 * @param app, PApplet processing core
 	 */
-	public  StartView(PApplet app) {
+	public  InfoView(PApplet app) {
 		this.app = app;
 		background= app.loadImage("../images/HomeBackGround.png");
 		clouds=app.loadImage("../images/Clouds.png");
-		menuItems=app.loadImage("../images/MenuItems.png");
-		infoButton= app.loadImage("../images/InfoButton.png");
-		playButton= app.loadImage("../images/PlayButton.png");
+		infoItems= app.loadImage("../images/InfoItems.png");
+		backButton= app.loadImage("../images/BackButton.png");
+		movementButton= app.loadImage("../images/MovementButton.png");
 		cloudsX1=0;
 		cloudsX2=1600;
 	}
 
 	/** 
 	 * 
-	 *	Method for drawing the Start Screen<br>
+	 *	Method for drawing the info Screen<br>
 		<b> pre: </b> <br>
-		<b> post: </b>Draws the Start screen<br>
+		<b> post: </b>Draws the info screen<br>
 	 */
 	public void drawScreen() {
 
@@ -63,13 +63,14 @@ public class StartView {
 
 		app.image(clouds, cloudsX1, 0);
 		app.image(clouds, cloudsX2, 0);
-		app.image(menuItems, 0, 0);
+		app.image(infoItems, 0,0);
+		
 
-		if(app.mouseX>142 && app.mouseX<370 && app.mouseY>410 && app.mouseY<470) {
-			app.image(infoButton, 113, 404);
+		if(app.mouseX>107 && app.mouseX<337 && app.mouseY>516 && app.mouseY<575) {
+			app.image(backButton, 81,509);
 		}
-		if(app.mouseX>430 && app.mouseX<658 && app.mouseY>410 && app.mouseY<470){
-			app.image(playButton, 401, 404);
+		if(app.mouseX>462 && app.mouseX<692 && app.mouseY>516 && app.mouseY<575){
+			app.image(movementButton, 428,509);
 		}
 
 	}
@@ -82,16 +83,13 @@ public class StartView {
 		@return screen, the screen where the program should go
 	 */
 	public int changeScreen() {
-		int screen=1;
-		if(app.mouseX>142 && app.mouseX<370 && app.mouseY>410 && app.mouseY<470) {
-			screen=2;
+		int screen=2;
+		if(app.mouseX>107 && app.mouseX<337 && app.mouseY>516 && app.mouseY<575) {
+			screen=1;
 		}
-		if(app.mouseX>430 && app.mouseX<658 && app.mouseY>410 && app.mouseY<470){
-			screen=4;
+		if(app.mouseX>462 && app.mouseX<692 && app.mouseY>516 && app.mouseY<575){
+			screen=3;
 		}
 		return screen;
 	}
-
-
 }
-
