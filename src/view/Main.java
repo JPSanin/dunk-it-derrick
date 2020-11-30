@@ -7,6 +7,7 @@ public class Main extends PApplet{
 
 	private StartView sv;
 	private InfoView iv;
+	private TutorialView tv;
 	private RegisterView rv;
 	private GameView gv;
 	private ScoreView scv;
@@ -24,6 +25,7 @@ public class Main extends PApplet{
 		screen=1;
 		sv= new StartView(this);
 		iv= new InfoView(this);
+		tv= new TutorialView(this);
 		rv= new RegisterView(this);
 		gv= new GameView(this);
 		scv= new ScoreView(this);
@@ -41,7 +43,7 @@ public class Main extends PApplet{
 			iv.drawScreen();
 			break;
 		case 3:
-			
+			tv.drawScreen();
 			break;
 		case 4:
 			rv.drawScreen();
@@ -70,7 +72,7 @@ public class Main extends PApplet{
 			screen=iv.changeScreen();
 			break;
 		case 3:
-			
+			screen= tv.changeScreen();
 			break;
 		case 4:
 			screen=rv.changeScreen();

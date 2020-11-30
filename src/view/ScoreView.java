@@ -40,9 +40,9 @@ public class ScoreView {
 
 	/** 
 	 * 
-	 *	Method for drawing the info Screen<br>
+	 *	Method for drawing the score Screen<br>
 		<b> pre: </b> <br>
-		<b> post: </b>Draws the info screen<br>
+		<b> post: </b>Draws the score screen<br>
 	 */
 	public void drawScreen() {
 

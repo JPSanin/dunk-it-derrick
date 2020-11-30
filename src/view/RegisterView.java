@@ -40,9 +40,9 @@ public class RegisterView {
 
 	/** 
 	 * 
-	 *	Method for drawing the info Screen<br>
+	 *	Method for drawing the register Screen<br>
 		<b> pre: </b> <br>
-		<b> post: </b>Draws the info screen<br>
+		<b> post: </b>Draws the register screen<br>
 	 */
 	public void drawScreen() {
 
