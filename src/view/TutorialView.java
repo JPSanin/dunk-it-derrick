@@ -1,5 +1,6 @@
 package view;
 
+import controller.TutorialController;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -18,6 +19,7 @@ public class TutorialView {
 	private PImage background, clouds;
 	private PImage continueButtonSmall, continueButtonBig;
 	private int cloudsX1, cloudsX2;
+	private TutorialController tc;
 	private PApplet app;
 
 
@@ -36,6 +38,7 @@ public class TutorialView {
 		continueButtonBig= app.loadImage("../images/ContinueButton.png");
 		cloudsX1=0;
 		cloudsX2=1600;
+		tc= new TutorialController(app);
 	}
 
 	/** 
@@ -68,8 +71,17 @@ public class TutorialView {
 			app.image(continueButtonBig, 505,520);
 		}
 		
+		tc.drawDerrick();
 
 	}
+	
+	
+
+	public void moveDerrick(char key) {
+		tc.getLogic().getDerrick().setKey(key);
+		new Thread(tc.getLogic().getDerrick()).start();
+	}
+	
 	
 	/** 
 	 * 
@@ -85,5 +97,6 @@ public class TutorialView {
 		}
 		return screen;
 	}
+
 }
 

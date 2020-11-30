@@ -61,8 +61,6 @@ public class Main extends PApplet{
 		text(mouseX+ ","+mouseY, mouseX,mouseY);
 	}
 
-
-
 	public void mousePressed() {
 		switch(screen) {
 		case 1:
@@ -85,4 +83,17 @@ public class Main extends PApplet{
 			break;
 		}
 	}
+	
+	public void keyPressed() {
+		switch(screen) {
+		case 3:
+			 tv.moveDerrick(key);
+			break;
+		
+		case 5:
+			screen=gv.changeScreen();
+			break;
+		}
+	}
+	
 }
