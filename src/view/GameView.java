@@ -15,17 +15,9 @@ import processing.core.PImage;
 
 public class GameView {
 
-	private int[][] map;
-	//0 Can Move
-	//1 Floor
-	//2&&3 fir hydrant
-	//4 Brick
-	//5 Steel
-	//6 Metal
-	private PImage background, clouds;
+
+	private PImage background, clouds, mapImage;
 	private int cloudsX1, cloudsX2;
-	private PImage floor, fireHydrant, brick, steel, metal;
-	private int squareSize;
 	private PImage infoOverlay;
 	private PApplet app;
 
@@ -42,30 +34,11 @@ public class GameView {
 		
 		background= app.loadImage("../images/soloBackground.png");
 		clouds=app.loadImage("../images/Clouds.png");
-		floor=app.loadImage("../images/floor.png");
-		fireHydrant=app.loadImage("../images/firehydrant.png");
-		brick=app.loadImage("../images/brick.png");
-		steel=app.loadImage("../images/steel.png");
-		metal=app.loadImage("../images/metal.png");
 		infoOverlay=app.loadImage("../images/infoOverlay.png");
-		
-		squareSize=50;
+		mapImage=app.loadImage("../images/map.png");
 		cloudsX1=0;
 		cloudsX2=1600;
-		map= new int[][]{ 
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{5,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
-			{5,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0},
-			{5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4},
-			{0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,2},
-			{0,0,0,0,3,0,0,0,0,3,0,0,0,0,0,3},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		};
+
 	
 	}
 
@@ -90,39 +63,14 @@ public class GameView {
 			cloudsX2=1600;
 		}
 
-		app.image(clouds, cloudsX1, 0);
-		app.image(clouds, cloudsX2, 0);
-		
-		drawMap();
-		
+		app.image(clouds, cloudsX1, 50);
+		app.image(clouds, cloudsX2, 50);
+		app.image(mapImage, 0, 0);
 		
 		app.image(infoOverlay, 0, 0);
 	}
 	
-	
-	private void drawMap() {
-		for (int columns = 0; columns < 16; columns++) {
-			for (int rows = 0; rows < 12; rows++) {
-				if(map[rows][columns] == 1) {
-					app.image(floor,0+ (columns * squareSize),0 + (rows * squareSize),squareSize,squareSize);
-				}
-				if(map[rows][columns] == 2) {
-					
-					app.image(fireHydrant,0+ (columns * squareSize),0 + (rows * squareSize),squareSize,squareSize*2);	
-				}
-				
-				if(map[rows][columns] == 4) {
-					app.image(brick,0+ (columns * squareSize),0 + (rows * squareSize),squareSize,squareSize);
-				}
-				
-				if(map[rows][columns] == 5) {
-					app.image(steel,0+ (columns * squareSize),0 + (rows * squareSize),squareSize,squareSize);
-				}
-				
-				
-			}
-		}
-	}
+
 	
 	/** 
 	 * 

@@ -4,10 +4,10 @@ import processing.core.PApplet;
 
 public class TutorialLogic {
 	
-	private Derrick derrick;
+	private TutorialDerrick derrick;
 	
 	public TutorialLogic(PApplet app) {
-		derrick= new Derrick(350,450,app);
+		derrick= new TutorialDerrick(350,450,app);
 	}
 	
 	
@@ -16,7 +16,7 @@ public class TutorialLogic {
 	}
 
 
-	public Derrick getDerrick() {
+	public TutorialDerrick getDerrick() {
 		return derrick;
 	}
 	
