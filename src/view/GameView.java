@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -17,8 +18,10 @@ public class GameView {
 
 
 	private PImage background, clouds, mapImage;
-	private int cloudsX1, cloudsX2;
+	private float cloudsX1, cloudsX2;
+	private int mapX;
 	private PImage infoOverlay;
+	private Controller controller;
 	private PApplet app;
 
 
@@ -31,6 +34,7 @@ public class GameView {
 	 */
 	public  GameView(PApplet app) {
 		this.app = app;
+		controller= new Controller(app);
 		
 		background= app.loadImage("../images/soloBackground.png");
 		clouds=app.loadImage("../images/Clouds.png");
@@ -38,6 +42,7 @@ public class GameView {
 		mapImage=app.loadImage("../images/map.png");
 		cloudsX1=0;
 		cloudsX2=1600;
+		mapX=0;
 
 	
 	}
@@ -51,21 +56,23 @@ public class GameView {
 	public void drawScreen() {
 		app.image(background, 0, 0);
 
+		moveMap();
 		if(cloudsX1>-1600) {
-			cloudsX1--;
+			cloudsX1-=0.5;
 		}else {
 			cloudsX1=1600;
 		}
 
 		if(cloudsX2>-1600) {
-			cloudsX2--;
+			cloudsX2-=0.5;
 		}else {
 			cloudsX2=1600;
 		}
 
 		app.image(clouds, cloudsX1, 50);
 		app.image(clouds, cloudsX2, 50);
-		app.image(mapImage, 0, 0);
+		controller.drawDerrick();
+		app.image(mapImage, mapX, 0);
 		
 		app.image(infoOverlay, 0, 0);
 	}
@@ -81,9 +88,32 @@ public class GameView {
 	 */
 	public int changeScreen() {
 		int screen=5;
-		
 			screen=6;
-		
 		return screen;
 	}
+
+	public void moveDerrick(char key) {
+		controller.getLogic().getDerrick().setKey(key);
+		new Thread(controller.getLogic().getDerrick()).start();
+		
+	}
+	
+	private void moveMap() {
+		if(mapX>=0) {
+			mapX=0;
+		}else {
+			if(controller.getLogic().getDerrick().getPosition().x<200) {
+				mapX+=1;
+				controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x+1);
+			}
+			
+		}
+		if(controller.getLogic().getDerrick().getPosition().x>400) {
+			mapX-=1;
+			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x-1);
+		}
+	}
+		
+	
+	
 }

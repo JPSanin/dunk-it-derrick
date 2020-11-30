@@ -91,7 +91,7 @@ public class Main extends PApplet{
 			break;
 		
 		case 5:
-			screen=gv.changeScreen();
+			gv.moveDerrick(key);
 			break;
 		}
 	}

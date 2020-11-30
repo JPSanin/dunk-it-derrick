@@ -26,7 +26,6 @@ public class Derrick extends Thread{
 	private PVector position;
 	private PVector velocity;
 	private PVector acceleration;
-	private int matX, matY;
 	private int health;
 	private int status;
 	private char key;
@@ -110,7 +109,7 @@ public class Derrick extends Thread{
 		}
 		
 		if(key==32) {
-			velocity.y=-35;
+			velocity.y=-30;
 			acceleration.y= 3.5f;
 			if(displayImage==RIGHT) {
 				displayImage=JUMP_RIGHT;
@@ -123,6 +122,14 @@ public class Derrick extends Thread{
 	}
 
 
+
+	public PVector getPosition() {
+		return position;
+	}
+	
+	public void setPositionX(float f) {
+		this.position.x = f;
+	}
 
 	public void setKey(char key) {
 		this.key = key;
