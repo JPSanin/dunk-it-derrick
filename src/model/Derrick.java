@@ -28,6 +28,7 @@ public class Derrick extends Thread{
 	private PVector position;
 	private PVector velocity;
 	private PVector acceleration;
+	private int matX, matY;
 	private int health;
 	private int status;
 	private char key;
@@ -111,7 +112,7 @@ public class Derrick extends Thread{
 		}
 		
 		if(key==32) {
-			velocity.y=-40;
+			velocity.y=-35;
 			acceleration.y= 3.5f;
 			if(displayImage==RIGHT) {
 				displayImage=JUMP_RIGHT;
