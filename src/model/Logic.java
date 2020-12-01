@@ -18,9 +18,21 @@ public class Logic {
 		derrick.draw();
 	}
 
+	public void blocker(int mapX) {
+		derrick.blocker(mapX);
+		
+	}
+	
+
+	
 
 	public Derrick getDerrick() {
 		return derrick;
 	}
+
+
+
+
+	
 
 }

@@ -71,6 +71,7 @@ public class GameView {
 
 		app.image(clouds, cloudsX1, 50);
 		app.image(clouds, cloudsX2, 50);
+		controller.blocker(mapX);
 		controller.drawDerrick();
 		app.image(mapImage, mapX, 0);
 		
@@ -108,7 +109,9 @@ public class GameView {
 			}
 			
 		}
-		if(controller.getLogic().getDerrick().getPosition().x>400) {
+		if(mapX<=-1600) {
+			mapX=-1600;
+		}else if(controller.getLogic().getDerrick().getPosition().x>400) {
 			mapX-=1;
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x-1);
 		}

@@ -12,15 +12,15 @@ import processing.core.PVector;
  */
 
 public class Derrick extends Thread{
-	
-	
+
+
 	private static final int RIGHT=0;
 	private static final int LEFT=1;
 	private static final int JUMP_RIGHT=2;
 	private static final int JUMP_LEFT=3;
 	private static final int SPEED=1;
 	private static final int INVINCIBLE=2;
-	
+
 	private int height;
 	private int width;
 	private PVector position;
@@ -29,23 +29,23 @@ public class Derrick extends Thread{
 	private int health;
 	private int status;
 	private char key;
-	
+
 	private int displayImage;
-	
+
 	private PImage[] images;
 	private PApplet app;
-	
-	
+
+
 	public Derrick(int x, int y,PApplet app) {
 		position= new PVector(x,y);
 		velocity= new PVector(0,0);
 		acceleration= new PVector(0,0);
 		height=50;
 		width=50;
-		
+
 		health=3;
 		status=0;
-		
+
 		displayImage=RIGHT;
 		images= new PImage[4];
 		images[RIGHT]=app.loadImage("../images/DerrickRight.png");
@@ -54,7 +54,7 @@ public class Derrick extends Thread{
 		images[JUMP_LEFT]=app.loadImage("../images/DerrickJumpingLeft.png");
 		this.app = app;
 	}
-	
+
 	public void run() {
 		move();
 		try {
@@ -63,58 +63,71 @@ public class Derrick extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void draw() {
+		acceleration.y= 3.5f;
+		if(position.x<=-1 || position.x>=750) {
+			if(position.x<-1) {
+				position.x=1;
+			}
+			acceleration.x=acceleration.x*-1;
+			velocity.x=velocity.x*-1;
+		}
+
+
+
+		app.image(images[displayImage], position.x, position.y);
 		position.add(velocity);
 		velocity.add(acceleration);
-		app.image(images[displayImage], position.x, position.y);
-		
+
+
+
+
+
+
 		if(velocity.x>-1 && velocity.x<1) {
 			acceleration.x=0;
 			velocity.x=0;
 		}
-		
-		if(position.x<=0 || position.x>=750) {
-			acceleration.x=acceleration.x*-1;
-			velocity.x=velocity.x*-1;
-		}
-		
+
+
+
 		if(position.y>=445) {
 			position.y=450;
 			velocity.y=0;
 			acceleration.y=0;
-			
+
 			if(displayImage==JUMP_RIGHT) {
 				displayImage=RIGHT;
 			}
-			
+
 			if(displayImage==JUMP_LEFT) {
 				displayImage=LEFT;
 			}
 		}
 	}
-	
+
 	public void move() {
 		if(key=='A' || key=='a') {
 			velocity.x=-10;
 			acceleration.x=0.3f;
 			displayImage=LEFT;
-			
+
 		}
-		
+
 		if(key=='D' || key=='d') {
 			velocity.x=10;
 			acceleration.x=-0.3f;
 			displayImage=RIGHT;
 		}
-		
+
 		if(key==32) {
 			velocity.y=-30;
-			acceleration.y= 3.5f;
+
 			if(displayImage==RIGHT) {
 				displayImage=JUMP_RIGHT;
 			}
-			
+
 			if(displayImage==LEFT) {
 				displayImage=JUMP_LEFT;
 			}
@@ -122,11 +135,61 @@ public class Derrick extends Thread{
 	}
 
 
+	public void blocker(int mapX) {
+		int[] steel= {2100+mapX,300};
+		int[][] fireHydrants= {
+				{200+mapX,400},
+				{450+mapX,400},
+				{750+mapX,400},
+				{1000+mapX,400},
+				{1350+mapX,400},
+				{1600+mapX,400},
+				{2150+mapX,400},
+		};
+
+
+		
+		if(position.x+width>steel[0] && 
+				position.x<steel[0]+width&&
+				position.y>steel[1]) {
+			acceleration.x=acceleration.x*-1;
+			velocity.x=velocity.x*-1;
+		}
+		for (int i = 0; i < 7; i++) {
+			if(position.x+width>fireHydrants[i][0] && 
+					position.x<fireHydrants[i][0]+width &&
+					position.y>fireHydrants[i][1]+25 && 
+					position.y<=450 ) {
+				acceleration.x=acceleration.x*-1;
+				velocity.x=velocity.x*-1;
+			}
+
+			if(position.x+width>fireHydrants[i][0] && 
+					position.x<fireHydrants[i][0]+width &&
+					position.y>=fireHydrants[i][1]-49 && position.y<=fireHydrants[i][1]) {
+				position.y=350;
+				velocity.y=0;
+				acceleration.y=0;
+				if(displayImage==JUMP_RIGHT) {
+					displayImage=RIGHT;
+				}
+
+				if(displayImage==JUMP_LEFT) {
+					displayImage=LEFT;
+				}
+			}
+		}
+		
+		
+	}
+
+
+
 
 	public PVector getPosition() {
 		return position;
 	}
-	
+
 	public void setPositionX(float f) {
 		this.position.x = f;
 	}
@@ -134,11 +197,11 @@ public class Derrick extends Thread{
 	public void setKey(char key) {
 		this.key = key;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 }

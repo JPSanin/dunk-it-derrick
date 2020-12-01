@@ -19,5 +19,13 @@ public class Controller {
 	public Logic getLogic() {
 		return logic;
 	}
+
+
+	public void blocker(int mapX) {
+		logic.blocker(mapX);
+		
+	}
+	
+	
 	
 }
