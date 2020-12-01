@@ -25,6 +25,18 @@ public class Controller {
 		logic.blocker(mapX);
 		
 	}
+
+
+	public void floorSetter(int mapX) {
+		logic.floorSetter(mapX);
+		
+	}
+
+
+	public void heightBlocker(int mapX) {
+		logic.heightBlocker(mapX);
+		
+	}
 	
 	
 	

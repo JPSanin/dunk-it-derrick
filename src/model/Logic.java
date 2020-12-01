@@ -18,6 +18,8 @@ public class Logic {
 		derrick.draw();
 	}
 
+	
+	
 	public void blocker(int mapX) {
 		derrick.blocker(mapX);
 		
@@ -28,6 +30,21 @@ public class Logic {
 
 	public Derrick getDerrick() {
 		return derrick;
+	}
+
+
+
+
+	public void floorSetter(int mapX) {
+		derrick.floorSetter(mapX);
+	}
+
+
+
+
+	public void heightBlocker(int mapX) {
+		derrick.heightBlocker(mapX);
+		
 	}
 
 

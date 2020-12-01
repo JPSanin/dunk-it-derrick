@@ -72,6 +72,8 @@ public class GameView {
 		app.image(clouds, cloudsX1, 50);
 		app.image(clouds, cloudsX2, 50);
 		controller.blocker(mapX);
+		controller.floorSetter(mapX);
+		controller.heightBlocker(mapX);
 		controller.drawDerrick();
 		app.image(mapImage, mapX, 0);
 		
