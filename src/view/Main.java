@@ -1,6 +1,7 @@
 package view;
 
 import processing.core.PApplet;
+import processing.event.MouseEvent;
 
 public class Main extends PApplet{
 
@@ -100,6 +101,18 @@ public class Main extends PApplet{
 			gv.moveDerrick(key);
 			break;
 		}
+	}
+	
+	
+	public void mouseWheel(MouseEvent event) {
+		float e = event.getCount();
+		switch(screen) {
+		case 6:
+			scv.scroll(e);
+			break;
+		}
+
+
 	}
 	
 }

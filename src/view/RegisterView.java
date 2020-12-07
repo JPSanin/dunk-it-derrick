@@ -2,6 +2,7 @@ package view;
 
 import controlP5.ControlP5;
 import controlP5.Textfield;
+import controller.Controller;
 import exceptions.EmptyNicknameException;
 import exceptions.NicknameLengthException;
 import processing.core.PApplet;
@@ -17,7 +18,6 @@ import processing.core.PImage;
 
  */
 
-
 public class RegisterView {
 
 	private PImage background, clouds, registerItems;
@@ -31,6 +31,8 @@ public class RegisterView {
 	private String nickname;
 	private ControlP5 cp5;
 
+	private Controller controller;
+
 
 	/** 
 	 * 
@@ -41,6 +43,7 @@ public class RegisterView {
 	 */
 	public  RegisterView(PApplet app) {
 		this.app = app;
+		controller= new Controller(app);
 		background= app.loadImage("../images/HomeBackGround.png");
 		clouds=app.loadImage("../images/Clouds.png");
 		registerItems= app.loadImage("../images/RegisterItems.png");
@@ -50,19 +53,19 @@ public class RegisterView {
 		font= app.createFont("../fonts/Minecraft.ttf", 48);
 		cloudsX1=0;
 		cloudsX2=1600;
-		
+
 		emptyNick=false;
 		longNick=false;
-		
+
 		cp5 = new ControlP5(app);
 		inputs= new String[1];
 		initializeTextFields();
 	}
-	
-	
+
+
 	private void initializeTextFields() {
 		inputs[0] = "Nickname";
-		
+
 		cp5.addTextfield(inputs[0]).setPosition(250,281).setSize(290, 73).setAutoClear(true).setColorValue(app.color(255))
 		.setColorActive(app.color(0,0,0,1)).setColorBackground(app.color(0,0,0,1)).setColorForeground(app.color(0,0,0,1))
 		.setColor(app.color(0,0,0,255)).setColorCursor(app.color(0,0,0,255)).setFont(font).getCaptionLabel().hide();
@@ -76,7 +79,7 @@ public class RegisterView {
 	 */
 	public void drawScreen() {
 
-		
+
 		app.image(background, 0, 0);
 
 		if(cloudsX1>-1600) {
@@ -94,24 +97,24 @@ public class RegisterView {
 		app.image(clouds, cloudsX1, 0);
 		app.image(clouds, cloudsX2, 0);
 		app.image(registerItems, 0,0);
-		
+
 
 		if(app.mouseX>286 && app.mouseX<513 && app.mouseY>392 && app.mouseY<451) {
 			app.image(continueButton, 265,386);
 		}
-		
+
 		if(emptyNick) {
 			app.image(emptyNickImage, 0, 0);
 		}
-		
+
 		if(longNick) {
 			app.image(longNickImage, 0, 0);
 		}
-		
-		
+
+
 
 	}
-	
+
 	/** 
 	 * 
 	 *	Method for changing screens<br>
@@ -138,7 +141,7 @@ public class RegisterView {
 				} catch (EmptyNicknameException e) {
 					emptyNick=true;
 				}
-				
+
 			}
 		}else {
 			if(emptyNick) {
@@ -148,33 +151,29 @@ public class RegisterView {
 				longNick=false;
 			}
 		}
-		
+
 		return screen;
 	}
-	
+
 	private boolean addPlayer() throws NicknameLengthException, EmptyNicknameException {
 		boolean success=false;
 		nickname=cp5.get(Textfield.class, "Nickname").getText();
-		
+
 		boolean empty = nickname.equals("");
-		
+
 		if(empty) {
 			throw new EmptyNicknameException();
 		}else if(nickname.length()>10) {
 			throw new NicknameLengthException();
-			
+
 		}else{
-			//registrar
-			System.out.println("registrar");
+			controller.addPlayer(nickname);
 			success=true;
 		}
-		
-		
-		
 		return success;
-		
+
 	}
-	
+
 	public ControlP5 getCp5() {
 		return cp5;
 	}

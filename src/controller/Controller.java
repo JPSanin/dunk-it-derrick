@@ -7,7 +7,7 @@ public class Controller {
 	private Logic logic;
 	
 	public Controller(PApplet app) {
-		 logic= new Logic(app);
+		 logic= Logic.getInstance(app);
 	}
 	
 	
@@ -36,6 +36,23 @@ public class Controller {
 	public void heightBlocker(int mapX) {
 		logic.heightBlocker(mapX);
 		
+	}
+
+
+	public void addPlayer(String nickname) {
+		logic.addPlayer(nickname);
+		
+	}
+
+
+	public void drawPlayers(int playersY) {
+		logic.drawPlayers(playersY);
+		
+	}
+
+
+	public int getPlayersSize() {
+		return logic.getPlayersSize();
 	}
 	
 	

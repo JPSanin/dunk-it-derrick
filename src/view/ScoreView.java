@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -18,6 +19,10 @@ public class ScoreView {
 	private PImage background, clouds, scoreItems;
 	private PImage playAgainButton;
 	private int cloudsX1, cloudsX2;
+	private int playersY;
+	private int sort;
+	
+	private Controller controller;
 	private PApplet app;
 
 
@@ -36,6 +41,9 @@ public class ScoreView {
 		playAgainButton= app.loadImage("../images/PlayAgainButton.png");
 		cloudsX1=0;
 		cloudsX2=1600;
+		playersY=275;
+		sort=1;
+		controller= new Controller(app);
 	}
 
 	/** 
@@ -69,6 +77,7 @@ public class ScoreView {
 			app.image(playAgainButton, 258,508);
 		}
 		
+		controller.drawPlayers(playersY);
 
 	}
 	
@@ -85,5 +94,30 @@ public class ScoreView {
 			screen=1;
 		}
 		return screen;
+	}
+	
+	
+	/** 
+	 * 
+	 *	Method for scrolling<br>
+		<b> pre: </b> <br>
+		<b> post: </b>Scrolls if it is possible<br>
+		@param e, represents the direction of the scroll
+	 */
+	public void scroll(float e) {
+		if(e>0) {
+			/*if(playersY>-((controller.getPlayersSize()*125)-720)) {
+				playersY-=25;	
+			}*/
+			playersY-=25;	
+			
+		}
+		if(e<0) {
+			/*if(playersY<275) {
+				playersY+=25;	
+			}*/
+			playersY+=25;
+		}
+		
 	}
 }
