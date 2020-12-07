@@ -1,6 +1,9 @@
 package view;
 
+import controlP5.ControlP5;
+import controlP5.Textfield;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -17,8 +20,12 @@ public class RegisterView {
 
 	private PImage background, clouds, registerItems;
 	private PImage continueButton;
+	private PFont font;
 	private int cloudsX1, cloudsX2;
 	private PApplet app;
+	private String[] inputs;
+	private String nickname;
+	private ControlP5 cp5;
 
 
 	/** 
@@ -34,8 +41,22 @@ public class RegisterView {
 		clouds=app.loadImage("../images/Clouds.png");
 		registerItems= app.loadImage("../images/RegisterItems.png");
 		continueButton= app.loadImage("../images/ContinueButton.png");
+		font= app.createFont("../fonts/Minecraft.ttf", 48);
 		cloudsX1=0;
 		cloudsX2=1600;
+		
+		cp5 = new ControlP5(app);
+		inputs= new String[1];
+		initializeTextFields();
+	}
+	
+	
+	private void initializeTextFields() {
+		inputs[0] = "Nickname";
+		
+		cp5.addTextfield(inputs[0]).setPosition(250,281).setSize(290, 73).setAutoClear(true).setColorValue(app.color(255))
+		.setColorActive(app.color(0,0,0,1)).setColorBackground(app.color(0,0,0,1)).setColorForeground(app.color(0,0,0,1))
+		.setColor(app.color(0,0,0,255)).setColorCursor(app.color(0,0,0,255)).setFont(font).getCaptionLabel().hide();
 	}
 
 	/** 
@@ -82,8 +103,44 @@ public class RegisterView {
 	public int changeScreen() {
 		int screen=4;
 		if(app.mouseX>286 && app.mouseX<513 && app.mouseY>392 && app.mouseY<451) {
-			screen=5;
+			boolean success= addPlayer();
+			if(success) {
+				screen=5;
+				cp5.get(Textfield.class, "Nickname").setText("");
+			}
+		
 		}
 		return screen;
+	}
+	
+	private boolean addPlayer() {
+		boolean success=false;
+		nickname=cp5.get(Textfield.class, "Nickname").getText();
+		
+		boolean empty = nickname.equals("");
+		
+		if(empty) {
+			//throw empty nickname exception
+			System.out.println("throw empty nickname exception");
+			
+		}else if(nickname.length()>10) {
+			//throw nickname length exception
+			cp5.get(Textfield.class, "Nickname").setText("");
+			System.out.println("throw nickname length exception");
+			
+		}else{
+			//registrar
+			System.out.println("registrar");
+			success=true;
+		}
+		
+		
+		
+		return success;
+		
+	}
+	
+	public ControlP5 getCp5() {
+		return cp5;
 	}
 }

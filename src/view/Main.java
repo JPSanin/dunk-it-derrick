@@ -38,21 +38,27 @@ public class Main extends PApplet{
 		switch(screen) {
 		case 1:
 			sv.drawScreen();
+			rv.getCp5().hide();
 			break;
 		case 2:
 			iv.drawScreen();
+			rv.getCp5().hide();
 			break;
 		case 3:
 			tv.drawScreen();
+			rv.getCp5().hide();
 			break;
 		case 4:
 			rv.drawScreen();
+			rv.getCp5().show();
 			break;
 		case 5:
 			gv.drawScreen();
+			rv.getCp5().hide();
 			break;
 		case 6:
 			scv.drawScreen();
+			rv.getCp5().hide();
 			break;
 		}
 
