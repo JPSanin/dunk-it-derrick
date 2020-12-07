@@ -30,12 +30,15 @@ public class Player extends Thread implements Comparable<Player> {
 	}
 	
 	public void draw(int posy) {
-		app.textFont(font);
-		app.textAlign(PConstants.CENTER);
-		app.text(nickname,103,posy);
-		app.text(dateString,301,posy);
-		app.text(gameTime,499,posy);
-		app.text(score,697,posy);
+		if(posy>274 && posy<480) {
+			app.textFont(font);
+			app.textAlign(PConstants.CENTER);
+			app.text(nickname,103,posy);
+			app.text(dateString,301,posy);
+			app.text(gameTime,499,posy);
+			app.text(score,697,posy);
+		}
+		
 	}
 	
 	

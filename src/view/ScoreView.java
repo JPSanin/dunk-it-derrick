@@ -106,17 +106,17 @@ public class ScoreView {
 	 */
 	public void scroll(float e) {
 		if(e>0) {
-			/*if(playersY>-((controller.getPlayersSize()*125)-720)) {
+			if(playersY+((controller.getPlayersSize()*25))>500) {
 				playersY-=25;	
-			}*/
-			playersY-=25;	
+			}
+			
 			
 		}
 		if(e<0) {
-			/*if(playersY<275) {
-				playersY+=25;	
-			}*/
-			playersY+=25;
+			if(playersY<275) {
+				playersY+=25;
+			}
+		
 		}
 		
 	}
