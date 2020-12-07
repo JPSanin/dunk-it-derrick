@@ -2,6 +2,8 @@ package view;
 
 import controlP5.ControlP5;
 import controlP5.Textfield;
+import exceptions.EmptyNicknameException;
+import exceptions.NicknameLengthException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -20,6 +22,8 @@ public class RegisterView {
 
 	private PImage background, clouds, registerItems;
 	private PImage continueButton;
+	private PImage emptyNickImage,longNickImage;
+	private boolean emptyNick, longNick;
 	private PFont font;
 	private int cloudsX1, cloudsX2;
 	private PApplet app;
@@ -41,9 +45,14 @@ public class RegisterView {
 		clouds=app.loadImage("../images/Clouds.png");
 		registerItems= app.loadImage("../images/RegisterItems.png");
 		continueButton= app.loadImage("../images/ContinueButton.png");
+		emptyNickImage= app.loadImage("../images/emptyNick.png");
+		longNickImage= app.loadImage("../images/longNick.png");
 		font= app.createFont("../fonts/Minecraft.ttf", 48);
 		cloudsX1=0;
 		cloudsX2=1600;
+		
+		emptyNick=false;
+		longNick=false;
 		
 		cp5 = new ControlP5(app);
 		inputs= new String[1];
@@ -67,6 +76,7 @@ public class RegisterView {
 	 */
 	public void drawScreen() {
 
+		
 		app.image(background, 0, 0);
 
 		if(cloudsX1>-1600) {
@@ -90,6 +100,15 @@ public class RegisterView {
 			app.image(continueButton, 265,386);
 		}
 		
+		if(emptyNick) {
+			app.image(emptyNickImage, 0, 0);
+		}
+		
+		if(longNick) {
+			app.image(longNickImage, 0, 0);
+		}
+		
+		
 
 	}
 	
@@ -99,34 +118,50 @@ public class RegisterView {
 		<b> pre: </b> <br>
 		<b> post: </b>Changes screens depending on the click<br>
 		@return screen, the screen where the program should go
+	 * @throws EmptyNicknameException 
+	 * @throws NicknameLengthException 
 	 */
-	public int changeScreen() {
+	public int changeScreen()  {
 		int screen=4;
-		if(app.mouseX>286 && app.mouseX<513 && app.mouseY>392 && app.mouseY<451) {
-			boolean success= addPlayer();
-			if(success) {
-				screen=5;
-				cp5.get(Textfield.class, "Nickname").setText("");
+		if(emptyNick==false && longNick==false) {
+			if(app.mouseX>286 && app.mouseX<513 && app.mouseY>392 && app.mouseY<451) {
+				boolean success;
+				try {
+					success = addPlayer();
+					if(success) {
+						screen=5;
+						cp5.get(Textfield.class, "Nickname").setText("");
+					}
+				} catch (NicknameLengthException e) {
+					cp5.get(Textfield.class, "Nickname").setText("");
+					longNick=true;
+				} catch (EmptyNicknameException e) {
+					emptyNick=true;
+				}
+				
 			}
-		
+		}else {
+			if(emptyNick) {
+				emptyNick=false;
+			}
+			if(longNick) {
+				longNick=false;
+			}
 		}
+		
 		return screen;
 	}
 	
-	private boolean addPlayer() {
+	private boolean addPlayer() throws NicknameLengthException, EmptyNicknameException {
 		boolean success=false;
 		nickname=cp5.get(Textfield.class, "Nickname").getText();
 		
 		boolean empty = nickname.equals("");
 		
 		if(empty) {
-			//throw empty nickname exception
-			System.out.println("throw empty nickname exception");
-			
+			throw new EmptyNicknameException();
 		}else if(nickname.length()>10) {
-			//throw nickname length exception
-			cp5.get(Textfield.class, "Nickname").setText("");
-			System.out.println("throw nickname length exception");
+			throw new NicknameLengthException();
 			
 		}else{
 			//registrar
