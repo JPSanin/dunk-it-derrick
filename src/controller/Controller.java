@@ -54,6 +54,12 @@ public class Controller {
 	public int getPlayersSize() {
 		return logic.getPlayersSize();
 	}
+
+
+	public void sort(int sort) {
+		logic.sortScores(sort);
+		
+	}
 	
 	
 	

@@ -56,10 +56,17 @@ public class Player extends Thread implements Comparable<Player> {
 		return score-p1.getScore();
 	}
 
+	
+	
+
+	public LocalDateTime getDate() {
+		return date;
+	}
 
 	public String getNickname() {
 		return nickname;
 	}
+
 
 
 	public String getDateString() {
