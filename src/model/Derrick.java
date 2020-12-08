@@ -122,7 +122,6 @@ public class Derrick extends Thread{
 		if(key==32 && jumping==false) {
 			jumping=true;
 			velocity.y=-30;
-			System.out.println("sisas");
 			if(displayImage==RIGHT) {
 				displayImage=JUMP_RIGHT;
 			}
@@ -201,7 +200,6 @@ public class Derrick extends Thread{
 				{2000+mapX,2050+mapX,300},
 				{2050+mapX,2100+mapX,250},
 				{2100+mapX,2150+mapX,200},
-				
 				{1000+mapX,1050+mapX,400},
 				{1350+mapX,1400+mapX,400},
 				{1600+mapX,1650+mapX,400},

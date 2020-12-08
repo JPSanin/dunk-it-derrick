@@ -35,7 +35,7 @@ public class GameView {
 	public  GameView(PApplet app) {
 		this.app = app;
 		controller= new Controller(app);
-		
+
 		background= app.loadImage("../images/soloBackground.png");
 		clouds=app.loadImage("../images/Clouds.png");
 		infoOverlay=app.loadImage("../images/infoOverlay.png");
@@ -43,7 +43,6 @@ public class GameView {
 		cloudsX1=0;
 		cloudsX2=1600;
 		mapX=0;
-
 	
 	}
 
@@ -74,14 +73,21 @@ public class GameView {
 		controller.blocker(mapX);
 		controller.floorSetter(mapX);
 		controller.heightBlocker(mapX);
+		controller.moveCats();
 		controller.drawDerrick();
-		app.image(mapImage, mapX, 0);
-		
-		app.image(infoOverlay, 0, 0);
-	}
-	
+		//controller.catBlocker();
 
-	
+		controller.drawCats();
+
+		app.image(mapImage, mapX, 0);
+
+		app.image(infoOverlay, 0, 0);
+
+
+	}
+
+
+
 	/** 
 	 * 
 	 *	Method for changing screens<br>
@@ -91,34 +97,36 @@ public class GameView {
 	 */
 	public int changeScreen() {
 		int screen=5;
-			screen=6;
+		screen=6;
 		return screen;
 	}
 
 	public void moveDerrick(char key) {
 		controller.getLogic().getDerrick().setKey(key);
 		new Thread(controller.getLogic().getDerrick()).start();
-		
+
 	}
-	
+
 	private void moveMap() {
 		if(mapX>=0) {
 			mapX=0;
-		}else {
-			if(controller.getLogic().getDerrick().getPosition().x<200) {
+		}else if(controller.getLogic().getDerrick().getPosition().x<200) {
 				mapX+=1;
 				controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x+1);
-			}
+				controller.setCatsPositions(1);
 			
+
 		}
 		if(mapX<=-1600) {
 			mapX=-1600;
 		}else if(controller.getLogic().getDerrick().getPosition().x>400) {
 			mapX-=1;
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x-1);
+			controller.setCatsPositions(-1);
+
 		}
 	}
-		
-	
-	
+
+
+
 }

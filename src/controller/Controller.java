@@ -60,6 +60,23 @@ public class Controller {
 		logic.sortScores(sort);
 		
 	}
+
+
+	public void drawCats() {
+		logic.drawCats();
+		
+	}
+
+
+	public void moveCats() {
+		logic.moveCats();
+	}
+
+
+	public void setCatsPositions(int mapX) {
+		logic.setCatsPositions(mapX);
+		
+	}
 	
 	
 	

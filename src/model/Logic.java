@@ -10,6 +10,7 @@ public class Logic {
 	private Derrick derrick;
 
 	private ArrayList<Player> players;
+	private ArrayList<EnemyCat> cats;
 	private DateComparator dc;
 	private NicknameComparator nc;
 	private TimeComparator tc;
@@ -23,6 +24,14 @@ public class Logic {
 		this.app=app;
 		derrick= new Derrick(0,450,app);
 		players= new ArrayList<>();
+		cats= new ArrayList<>();
+		cats.add(new EnemyCat(150,200,50,250,app));
+		cats.add(new EnemyCat(650,450,500,750,app));
+		cats.add(new EnemyCat(1100,450,1050,1350,app));
+		cats.add(new EnemyCat(1750,450,1650,2100,app));
+		cats.add(new EnemyCat(2250,450,2150,2400,app));
+		cats.add(new EnemyCat(2350,450,2150,2400,app));
+		cats.add(new EnemyCat(2300,450,2150,2400,app));
 		dc= new DateComparator();
 		nc= new NicknameComparator();
 		tc=new TimeComparator();
@@ -36,8 +45,25 @@ public class Logic {
 		return onlyInstance;
 	}
 
+	public void drawCats() {
+		for (int i = 0; i < cats.size(); i++) {
+			cats.get(i).draw();
+		}
+	}
 
-
+	
+	public void moveCats() {
+		for (int i = 0; i < cats.size(); i++) {
+			new Thread(cats.get(i)).start();
+		}
+	}
+	
+	public void setCatsPositions(int mapX) {
+		for (int i = 0; i < cats.size(); i++) {
+			cats.get(i).setPostitions(mapX);
+		}
+	}
+	
 	public void drawDerrick() {
 		derrick.draw();
 	}
@@ -101,6 +127,9 @@ public class Logic {
 	public int getPlayersSize() {
 		return players.size();
 	}
+
+
+	
 
 
 

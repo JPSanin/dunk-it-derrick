@@ -72,6 +72,7 @@ public class Main extends PApplet{
 		switch(screen) {
 		case 1:
 			screen=sv.changeScreen();
+			rv.clearTextField();
 			break;
 		case 2:
 			screen=iv.changeScreen();
