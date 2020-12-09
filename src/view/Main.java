@@ -71,9 +71,6 @@ public class Main extends PApplet{
 			break;
 		}
 
-
-		fill(255);
-		text(mouseX+ ","+mouseY, mouseX,mouseY);
 	}
 
 	public void mousePressed() {
