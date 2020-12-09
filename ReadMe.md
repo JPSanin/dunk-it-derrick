@@ -20,6 +20,7 @@ Java: https://www.java.com/
 JDK: https://www.oracle.com/co/java/technologies/javase-downloads.html
 Eclipse: https://www.eclipse.org/downloads/
 Processing: https://processing.org/
+ControlP5: http://www.sojamo.de/libraries/controlP5/
 ```
 
 ## Made with 🛠️
