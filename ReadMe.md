@@ -1,4 +1,4 @@
-# Dunk it Derrick
+# Dunk it Derrick 🏀
 
 _Platform based game inspired on Super Mario but with a basketball twist._
 _2k has decided to go back in time and develop a platform game inspired by Derrick Rose.
@@ -33,7 +33,7 @@ Processing: https://processing.org/
 ## Project Information 📖
 
 The game has various screens ranging from the home screen, info screen,
-th interactive tutorial screen, the game screen, and the scoreboard.
+the interactive tutorial screen, the game screen, and the scoreboard.
 The main objective is to collect all the power-ups and make it to the
 end of the map without falling or losing all your lives.
 
