@@ -122,7 +122,19 @@ public class Logic {
 		}
 
 	}
+	
+	public void checkHit() {
+		for (int i = 0; i < cats.size(); i++) {
+			if(derrick.checkHit(cats.get(i))) {
+				cats.remove(i);
+				derrick.setHealth(derrick.getHealth()-1);
+			}
+		}
+	}
 
+	public void checkFall() {
+		derrick.checkFall();
+	}
 
 	public int getPlayersSize() {
 		return players.size();
@@ -132,6 +144,9 @@ public class Logic {
 	public Player getCurrentPlayer() {
 		return players.get(players.size()-1);
 	}
+
+
+	
 
 
 	

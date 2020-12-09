@@ -55,6 +55,12 @@ public class Main extends PApplet{
 			break;
 		case 5:
 			gv.drawScreen();
+			if(gv.isLose()) {
+				screen=6;
+			}
+			if(gv.isWin()) {
+				screen=6;
+			}
 			rv.getCp5().hide();
 			break;
 		case 6:

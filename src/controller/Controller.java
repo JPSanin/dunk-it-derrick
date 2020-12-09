@@ -78,10 +78,20 @@ public class Controller {
 		logic.setCatsPositions(mapX);
 		
 	}
+	
+	public void checkHit() {
+		logic.checkHit();
+	}
 
 
 	public Player getCurrentPlayer() {
 		return logic.getCurrentPlayer();
+	}
+
+
+	public void checkFall() {
+		logic.checkFall();
+		
 	}
 	
 	

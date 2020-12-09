@@ -67,4 +67,26 @@ public class EnemyCat extends Thread{
 		xmax+=mapX;
 	}
 
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	
+	
 }

@@ -238,6 +238,20 @@ public class Derrick extends Thread{
 		}
 	}
 
+	public void checkFall() {
+		if(position.y>598) {
+			health=0;
+		}
+	}
+	
+	public boolean checkHit(EnemyCat c) {
+		boolean hit=false;
+		if (PApplet.dist(position.x+width/2,position.y+height/2 ,c.getPosX()+c.getWidth()/2 , c.getPosY()+c.getHeight()/2)
+				<width/2) {
+			hit=true;
+		}
+		return hit;
+	}
 
 
 	public PVector getPosition() {
@@ -252,6 +266,16 @@ public class Derrick extends Thread{
 		this.key = key;
 	}
 
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	
+	
 
 
 
