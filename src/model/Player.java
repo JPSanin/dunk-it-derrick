@@ -35,7 +35,7 @@ public class Player extends Thread implements Comparable<Player> {
 			app.textAlign(PConstants.CENTER);
 			app.text(nickname,103,posy);
 			app.text(dateString,301,posy);
-			app.text(gameTime,499,posy);
+			app.text(gameTime+ " s",499,posy);
 			app.text(score,697,posy);
 		}
 		

@@ -26,6 +26,7 @@ public class RegisterView {
 	private boolean emptyNick, longNick;
 	private PFont font;
 	private int cloudsX1, cloudsX2;
+	private int time;
 	private PApplet app;
 	private String[] inputs;
 	private String nickname;
@@ -56,6 +57,8 @@ public class RegisterView {
 
 		emptyNick=false;
 		longNick=false;
+		
+		time=0;
 
 		cp5 = new ControlP5(app);
 		inputs= new String[1];
@@ -78,7 +81,7 @@ public class RegisterView {
 		<b> post: </b>Draws the register screen<br>
 	 */
 	public void drawScreen() {
-
+		time= (int) app.millis()/1000;
 
 		app.image(background, 0, 0);
 
@@ -182,4 +185,11 @@ public class RegisterView {
 	public void clearTextField() {
 		cp5.get(Textfield.class, "Nickname").setText("");
 	}
+
+
+	public int getTime() {
+		return time;
+	}
+	
+	
 }

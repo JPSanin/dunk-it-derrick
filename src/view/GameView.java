@@ -2,6 +2,8 @@ package view;
 
 import controller.Controller;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -20,6 +22,8 @@ public class GameView {
 	private PImage background, clouds, mapImage;
 	private float cloudsX1, cloudsX2;
 	private int mapX;
+	private int gameTime, scrapTime;
+	private PFont font;
 	private PImage infoOverlay;
 	private Controller controller;
 	private PApplet app;
@@ -40,9 +44,12 @@ public class GameView {
 		clouds=app.loadImage("../images/Clouds.png");
 		infoOverlay=app.loadImage("../images/infoOverlay.png");
 		mapImage=app.loadImage("../images/map.png");
+		font= app.createFont("../fonts/Minecraft.ttf", 18);
 		cloudsX1=0;
 		cloudsX2=1600;
 		mapX=0;
+		gameTime=0;
+		scrapTime=0;
 	
 	}
 
@@ -53,6 +60,7 @@ public class GameView {
 		<b> post: </b>Draws the info screen<br>
 	 */
 	public void drawScreen() {
+		gameTime= (int) app.millis()/1000-scrapTime;
 		app.image(background, 0, 0);
 
 		moveMap();
@@ -82,6 +90,9 @@ public class GameView {
 		app.image(mapImage, mapX, 0);
 
 		app.image(infoOverlay, 0, 0);
+		app.textFont(font);
+		app.textAlign(PConstants.CENTER);
+		app.text(gameTime+" s",140,48);
 
 
 	}
@@ -97,6 +108,7 @@ public class GameView {
 	 */
 	public int changeScreen() {
 		int screen=5;
+		controller.getCurrentPlayer().setGameTime(gameTime);
 		screen=6;
 		return screen;
 	}
@@ -125,6 +137,10 @@ public class GameView {
 			controller.setCatsPositions(-1);
 
 		}
+	}
+	
+	public void setScrapTime(int scrapTime) {
+		this.scrapTime = scrapTime;
 	}
 
 

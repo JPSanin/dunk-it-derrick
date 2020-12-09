@@ -82,6 +82,9 @@ public class Main extends PApplet{
 			break;
 		case 4:
 			screen=rv.changeScreen();
+			if(screen==5) {
+				gv.setScrapTime(rv.getTime());
+			}
 			break;
 		case 5:
 			screen=gv.changeScreen();

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Logic;
+import model.Player;
 import processing.core.PApplet;
 
 public class Controller {
@@ -76,6 +77,11 @@ public class Controller {
 	public void setCatsPositions(int mapX) {
 		logic.setCatsPositions(mapX);
 		
+	}
+
+
+	public Player getCurrentPlayer() {
+		return logic.getCurrentPlayer();
 	}
 	
 	

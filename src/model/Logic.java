@@ -129,6 +129,11 @@ public class Logic {
 	}
 
 
+	public Player getCurrentPlayer() {
+		return players.get(players.size()-1);
+	}
+
+
 	
 
 
