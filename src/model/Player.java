@@ -24,7 +24,7 @@ public class Player extends Thread implements Comparable<Player> {
 		date=LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		dateString= date.format(formatter); 
-		score=1;
+		score=0;
 		gameTime=0;
 		font= app.createFont("../fonts/Minecraft.ttf", 16);
 	}
@@ -47,7 +47,10 @@ public class Player extends Thread implements Comparable<Player> {
 	}
 	
 	private void calculateScore() {
-		score= score*gameTime;
+		score= score-gameTime;
+		if(score<0) {
+			score=0;
+		}
 	}
 
 	@Override

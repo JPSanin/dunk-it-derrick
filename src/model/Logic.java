@@ -11,6 +11,10 @@ public class Logic {
 
 	private ArrayList<Player> players;
 	private ArrayList<EnemyCat> cats;
+	private ArrayList<PowerUp> powerUps;
+	private int speedTime;
+	private int invinciTime;
+
 	private DateComparator dc;
 	private NicknameComparator nc;
 	private TimeComparator tc;
@@ -24,6 +28,7 @@ public class Logic {
 		this.app=app;
 		derrick= new Derrick(0,450,app);
 		players= new ArrayList<>();
+
 		cats= new ArrayList<>();
 		cats.add(new EnemyCat(150,200,50,250,app));
 		cats.add(new EnemyCat(650,450,500,750,app));
@@ -32,6 +37,12 @@ public class Logic {
 		cats.add(new EnemyCat(2250,450,2150,2400,app));
 		cats.add(new EnemyCat(2350,450,2150,2400,app));
 		cats.add(new EnemyCat(2300,450,2150,2400,app));
+		powerUps= new ArrayList<>();
+		powerUps.add(new SpeedShoes(55,210,app));
+		powerUps.add(new HealthHeart(1250,450,app));
+		powerUps.add(new SpecialBasketball(2050,450,app));
+		speedTime=0;
+		invinciTime=0;
 		dc= new DateComparator();
 		nc= new NicknameComparator();
 		tc=new TimeComparator();
@@ -51,19 +62,19 @@ public class Logic {
 		}
 	}
 
-	
+
 	public void moveCats() {
 		for (int i = 0; i < cats.size(); i++) {
 			new Thread(cats.get(i)).start();
 		}
 	}
-	
+
 	public void setCatsPositions(int mapX) {
 		for (int i = 0; i < cats.size(); i++) {
 			cats.get(i).setPostitions(mapX);
 		}
 	}
-	
+
 	public void drawDerrick() {
 		derrick.draw();
 	}
@@ -105,6 +116,46 @@ public class Logic {
 
 	}
 
+	public void drawPowerUps() {
+		for (int i = 0; i < powerUps.size(); i++) {
+			powerUps.get(i).draw();
+		}
+	}
+
+
+	public void setPowerUpsPositions(int mapX) {
+		for (int i = 0; i < powerUps.size(); i++) {
+			powerUps.get(i).setPostition(mapX);
+		}	
+	}
+
+	public void checkConsume() {
+		for (int i = 0; i < powerUps.size(); i++) {
+			if(powerUps.get(i).consumed(derrick)) {
+				if(powerUps.get(i) instanceof HealthHeart) {
+					if(derrick.getHealth()<3) {
+						derrick.setHealth(derrick.getHealth()+1);
+					}
+					getCurrentPlayer().setScore(getCurrentPlayer().getScore()+50);
+				}
+
+				if(powerUps.get(i) instanceof SpeedShoes) {
+					speedTime=(int) app.millis()/1000;
+					derrick.setStatus(1);
+					getCurrentPlayer().setScore(getCurrentPlayer().getScore()+50);
+				}
+
+				if(powerUps.get(i) instanceof SpecialBasketball) {
+					invinciTime=(int) app.millis()/1000;
+					derrick.setStatus(2);
+					getCurrentPlayer().setScore(getCurrentPlayer().getScore()+50);
+
+				}
+				powerUps.remove(i);
+			}
+		}	
+	}
+
 	public void sortScores(int sort) {
 		switch (sort) {
 		case 1:
@@ -122,7 +173,33 @@ public class Logic {
 		}
 
 	}
-	
+
+	public void resetSpeed(int gameTime) {
+
+		if(derrick.getStatus()==1) {
+			int difTime=gameTime;
+			speedTime+=difTime;
+			if(speedTime>=5000) {
+				derrick.setStatus(0);
+			}
+
+		}
+		//System.out.println(powerTime+", "+ derrick.getStatus());
+	}
+
+	public void resetInvincibility(int gameTime) {
+
+		if(derrick.getStatus()==2) {
+			int difTime=gameTime;
+			invinciTime+=difTime;
+			if(invinciTime>=5000) {
+				derrick.setStatus(0);
+			}
+
+		}
+		System.out.println(invinciTime+", "+ derrick.getStatus());
+	}
+
 	public void checkHit() {
 		for (int i = 0; i < cats.size(); i++) {
 			if(derrick.checkHit(cats.get(i))) {
@@ -131,6 +208,8 @@ public class Logic {
 			}
 		}
 	}
+
+
 
 	public void checkFall() {
 		derrick.checkFall();
@@ -146,10 +225,12 @@ public class Logic {
 	}
 
 
-	
 
 
-	
+
+
+
+
 
 
 

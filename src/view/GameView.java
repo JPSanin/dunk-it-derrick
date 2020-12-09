@@ -68,6 +68,8 @@ public class GameView {
 	 */
 	public void drawScreen() {
 		gameTime= (int) app.millis()/1000-scrapTime;
+		controller.resetSpeed(gameTime);
+		controller.resetInvincibility(gameTime);
 		app.image(background, 0, 0);
 
 		moveMap();
@@ -93,14 +95,17 @@ public class GameView {
 		controller.drawCats();
 		controller.checkHit();
 		controller.checkFall();
+		controller.drawPowerUps();
+		controller.checkConsume();
 
+	
 		app.image(mapImage, mapX, 0);
 
 		app.image(infoOverlay, 0, 0);
 		app.textFont(font);
 		app.textAlign(PConstants.CENTER);
 		app.text(gameTime+" s",140,48);
-		app.text(controller.getCurrentPlayer().getScore(),340,48);
+		app.text(controller.getCurrentPlayer().getScore()+" pts",355,48);
 		switch (controller.getLogic().getDerrick().getHealth()) {
 		case 1:
 			app.image(oneHeart, 510,30);
@@ -152,7 +157,7 @@ public class GameView {
 			mapX+=1;
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x+1);
 			controller.setCatsPositions(1);
-
+			controller.setPowerUpsPositions(1);
 
 		}
 		if(mapX<=-1600) {
@@ -161,6 +166,7 @@ public class GameView {
 			mapX-=1;
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x-1);
 			controller.setCatsPositions(-1);
+			controller.setPowerUpsPositions(-1);
 
 		}
 	}
@@ -169,6 +175,7 @@ public class GameView {
 		this.scrapTime = scrapTime;
 	}
 
+	
 	public boolean isWin() {
 		return win;
 	}

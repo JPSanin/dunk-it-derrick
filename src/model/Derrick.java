@@ -107,16 +107,31 @@ public class Derrick extends Thread{
 
 	public void move() {
 		if(key=='A' || key=='a') {
-			velocity.x=-10;
-			acceleration.x=0.5f;
-			displayImage=LEFT;
+			if(status==SPEED) {
+				velocity.x=-13;
+				acceleration.x=0.5f;
+				displayImage=LEFT;
+			}else {
+				velocity.x=-10;
+				acceleration.x=0.5f;
+				displayImage=LEFT;
+			}
+			
+			
+			
 
 		}
 
 		if(key=='D' || key=='d') {
-			velocity.x=10;
-			acceleration.x=-0.5f;
-			displayImage=RIGHT;
+			if(status==SPEED) {
+				velocity.x=13;
+				acceleration.x=-0.5f;
+				displayImage=RIGHT;
+			}else {
+				velocity.x=10;
+				acceleration.x=-0.5f;
+				displayImage=RIGHT;
+			}
 		}
 
 		if(key==32 && jumping==false) {
@@ -246,10 +261,13 @@ public class Derrick extends Thread{
 	
 	public boolean checkHit(EnemyCat c) {
 		boolean hit=false;
-		if (PApplet.dist(position.x+width/2,position.y+height/2 ,c.getPosX()+c.getWidth()/2 , c.getPosY()+c.getHeight()/2)
-				<width/2) {
-			hit=true;
+		if(status!=INVINCIBLE) {
+			if (PApplet.dist(position.x+width/2,position.y+height/2 ,c.getPosX()+c.getWidth()/2 , c.getPosY()+c.getHeight()/2)
+					<width/2) {
+				hit=true;
+			}
 		}
+		
 		return hit;
 	}
 
@@ -273,6 +291,26 @@ public class Derrick extends Thread{
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	
+
 
 	
 	

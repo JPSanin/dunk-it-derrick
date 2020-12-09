@@ -57,9 +57,11 @@ public class Main extends PApplet{
 			gv.drawScreen();
 			if(gv.isLose()) {
 				screen=6;
+				scv.setLose(gv.isLose());
 			}
 			if(gv.isWin()) {
 				screen=6;
+				scv.setWin(gv.isWin());
 			}
 			rv.getCp5().hide();
 			break;

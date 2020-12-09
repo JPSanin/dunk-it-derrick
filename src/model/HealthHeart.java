@@ -1,5 +1,34 @@
 package model;
 
-public class HealthHeart {
+import processing.core.PApplet;
+import processing.core.PImage;
+
+public class HealthHeart extends PowerUp{
+	
+	private PImage image;
+
+	public HealthHeart(int posX, int posY, PApplet app) {
+		super(posX, posY, app);
+		image= app.loadImage("../images/healthHeart.png");
+	}
+
+	
+	@Override
+	public void draw() {
+		getApp().image(image, getPosX(),getPosY(),getWidth(),getHeight());
+	}
+
+
+	@Override
+	public boolean consumed(Derrick d) {
+		boolean consume= false;
+		if (PApplet.dist(d.getPosition().x+d.getWidth()/2,d.getPosition().y+d.getHeight()/2 ,getPosX()+getWidth()/2 ,getPosY()+getHeight()/2)
+				<d.getWidth()/2+getWidth()/2) {
+			consume=true;
+		}
+		return consume;
+	}
+	
+	
 
 }

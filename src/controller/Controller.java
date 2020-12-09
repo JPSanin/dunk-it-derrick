@@ -93,7 +93,32 @@ public class Controller {
 		logic.checkFall();
 		
 	}
+
+
+	public void drawPowerUps() {
+		logic.drawPowerUps();
+	}
+
+
+	public void setPowerUpsPositions(int mapX) {
+		logic.setPowerUpsPositions(mapX);
+		
+	}
+
+
+	public void checkConsume() {
+		logic.checkConsume();
+		
+	}
+
+
+	public void resetSpeed(int gameTime) {
+		logic.resetSpeed(gameTime);
+	}
 	
+	public void resetInvincibility(int gameTime) {
+		logic.resetInvincibility(gameTime);
+	}
 	
 	
 }

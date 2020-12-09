@@ -19,6 +19,8 @@ public class ScoreView {
 	private PImage background, clouds, scoreItems;
 	private PImage playAgainButton;
 	private PImage[] sortingCovers;
+	private PImage loseMessage, winMessage;
+	private boolean win, lose;
 	private int cloudsX1, cloudsX2;
 	private int playersY;
 	private int sort;
@@ -45,10 +47,15 @@ public class ScoreView {
 			sortingCovers[i]=app.loadImage("../images/sortingCover"+(i+1)+".png");
 		}
 		
+		loseMessage= app.loadImage("../images/loseMessage.png");
+		winMessage= app.loadImage("../images/winMessage.png");
+		
 		cloudsX1=0;
 		cloudsX2=1600;
 		playersY=275;
 		sort=1;
+		win=false;
+		lose=false;
 		controller= new Controller(app);
 		
 	}
@@ -99,7 +106,14 @@ public class ScoreView {
 		}
 		
 		controller.drawPlayers(playersY);
+		
+		if(win) {
+			app.image(winMessage, 0, 0);
+		}
 
+		if(lose) {
+			app.image(loseMessage, 0, 0);
+		}
 	}
 	
 	/** 
@@ -111,29 +125,38 @@ public class ScoreView {
 	 */
 	public int changeScreen() {
 		int screen=6;
-		if(app.mouseX>286 && app.mouseX<513 && app.mouseY>515 && app.mouseY<574) {
-			screen=1;
+		if(win==true) {
+			win=false;
+		}else if(lose==true) {
+			lose=false;
+			
+		}else if(win==false && lose ==false) {
+			
+			if(app.mouseX>286 && app.mouseX<513 && app.mouseY>515 && app.mouseY<574) {
+				screen=1;
+			}
+			if(app.mouseX>10 && app.mouseX<195 && app.mouseY>190 && app.mouseY<235) {
+				sort=1;
+				playersY=275;
+				controller.sort(sort);
+			}
+			if(app.mouseX>205 && app.mouseX<395 && app.mouseY>190 && app.mouseY<235) {
+				sort=2;
+				playersY=275;
+				controller.sort(sort);
+			}
+			if(app.mouseX>405 && app.mouseX<595 && app.mouseY>190 && app.mouseY<235) {
+				sort=3;
+				playersY=275;
+				controller.sort(sort);
+			}
+			if(app.mouseX>600 && app.mouseX<790 && app.mouseY>190 && app.mouseY<235) {
+				sort=4;
+				playersY=275;
+				controller.sort(sort);
+			}
 		}
-		if(app.mouseX>10 && app.mouseX<195 && app.mouseY>190 && app.mouseY<235) {
-			sort=1;
-			playersY=275;
-			controller.sort(sort);
-		}
-		if(app.mouseX>205 && app.mouseX<395 && app.mouseY>190 && app.mouseY<235) {
-			sort=2;
-			playersY=275;
-			controller.sort(sort);
-		}
-		if(app.mouseX>405 && app.mouseX<595 && app.mouseY>190 && app.mouseY<235) {
-			sort=3;
-			playersY=275;
-			controller.sort(sort);
-		}
-		if(app.mouseX>600 && app.mouseX<790 && app.mouseY>190 && app.mouseY<235) {
-			sort=4;
-			playersY=275;
-			controller.sort(sort);
-		}
+		
 		
 		return screen;
 	}
@@ -166,4 +189,16 @@ public class ScoreView {
 		}
 		
 	}
+
+	
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+
+	public void setLose(boolean lose) {
+		this.lose = lose;
+	}
+	
+	
+	
 }
