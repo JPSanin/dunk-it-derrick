@@ -113,12 +113,12 @@ public class Controller {
 	}
 
 
-	public void resetSpeed(int gameTime) {
-		logic.resetSpeed(gameTime);
+	public void resetSpeed(int allTime) {
+		logic.resetSpeed(allTime);
 	}
 	
-	public void resetInvincibility(int gameTime) {
-		logic.resetInvincibility(gameTime);
+	public void resetInvincibility(int allTime) {
+		logic.resetInvincibility(allTime);
 	}
 
 

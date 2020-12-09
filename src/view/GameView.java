@@ -2,6 +2,9 @@ package view;
 
 import controller.Controller;
 import exceptions.WinException;
+import model.HealthHeart;
+import model.SpecialBasketball;
+import model.SpeedShoes;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;
@@ -25,6 +28,9 @@ public class GameView {
 	private int mapX;
 	private int gameTime, scrapTime;
 	private boolean win, lose;
+	private int shoeIconX, heartIconX,ballIconX,iconsY;
+	
+	private PImage[] shoes, hearts, balls;
 	private PFont font;
 	private PImage infoOverlay;
 	private PImage threeHearts,twoHearts,oneHeart;
@@ -51,6 +57,22 @@ public class GameView {
 		twoHearts=app.loadImage("../images/twoHearts.png");
 		oneHeart=app.loadImage("../images/oneHeart.png");
 		font= app.createFont("../fonts/Minecraft.ttf", 18);
+		shoes= new PImage[3];
+		hearts= new PImage[2];
+		balls= new PImage[3];
+		
+		for (int i=0; i<shoes.length; i++) {
+			shoes[i]=app.loadImage("../images/shoes"+i+".png");
+		}
+		
+		for (int i=0; i<hearts.length; i++) {
+			hearts[i]=app.loadImage("../images/hearts"+i+".png");
+		}
+		
+		for (int i=0; i<balls.length; i++) {
+			balls[i]=app.loadImage("../images/balls"+i+".png");
+		}
+		
 		cloudsX1=0;
 		cloudsX2=1600;
 		mapX=0;
@@ -58,6 +80,10 @@ public class GameView {
 		scrapTime=0;
 		win=false;
 		lose=false;
+		shoeIconX=690;
+		heartIconX=722;
+		ballIconX=751;
+		iconsY=31;
 
 	}
 
@@ -68,9 +94,11 @@ public class GameView {
 		<b> post: </b>Draws the info screen<br>
 	 */
 	public void drawScreen() {
+		int allTime=(int) app.millis()/1000;
 		gameTime= (int) app.millis()/1000-scrapTime;
-		controller.resetSpeed(gameTime);
-		controller.resetInvincibility(gameTime);
+		controller.resetInvincibility(allTime);
+		controller.resetSpeed(allTime);
+		
 		app.image(background, 0, 0);
 
 		moveMap();
@@ -119,6 +147,8 @@ public class GameView {
 			break;
 
 		}
+		
+		drawIcons();
 		
 		if(controller.getLogic().getDerrick().getHealth()==0) {
 			controller.getCurrentPlayer().setGameTime(gameTime);
@@ -181,6 +211,127 @@ public class GameView {
 			controller.setWinPosition(-1);
 
 		}
+	}
+	
+	private void drawIcons() {
+		
+		if(controller.getLogic().getDerrick().getStatus()==1) {
+			if(Math.floor((app.millis()/1000))%2==0) {
+				app.image(shoes[1], shoeIconX, iconsY);
+			}
+		}
+		if(controller.getLogic().getDerrick().getStatus()==2) {
+			if(Math.floor((app.millis()/1000))%2==0) {
+				app.image(balls[1], ballIconX, iconsY);
+			}
+		}
+		
+		switch(controller.getLogic().getPowerUps().size()) {
+		case 0:
+			if(controller.getLogic().getDerrick().getStatus()==0) {
+				app.image(shoes[2], shoeIconX, iconsY);
+				app.image(hearts[1], heartIconX, iconsY);
+				app.image(balls[2], ballIconX, iconsY);
+			}
+			break;
+		case 1:
+			if(controller.getLogic().getPowerUps().get(0) instanceof HealthHeart) {
+				app.image(hearts[0], heartIconX, iconsY);
+				
+				switch(controller.getLogic().getDerrick().getStatus()) {
+				case 0:
+					app.image(shoes[2], shoeIconX, iconsY);
+					app.image(balls[2], ballIconX, iconsY);
+					break;
+				case 1:
+					app.image(balls[2], ballIconX, iconsY);
+					break;
+				case 2:
+					app.image(shoes[2], shoeIconX, iconsY);
+					break;
+				}
+				
+			}else if(controller.getLogic().getPowerUps().get(0) instanceof SpeedShoes) {
+				app.image(shoes[0], shoeIconX, iconsY);
+				
+				switch(controller.getLogic().getDerrick().getStatus()) {
+				case 0:
+					app.image(hearts[1], heartIconX, iconsY);
+					app.image(balls[2], ballIconX, iconsY);
+					break;
+				case 1:
+					app.image(balls[2], ballIconX, iconsY);
+					break;
+				case 2:
+					app.image(shoes[2], shoeIconX, iconsY);
+					break;
+				}
+		
+			}else{
+				app.image(balls[0], ballIconX, iconsY);
+				
+				switch(controller.getLogic().getDerrick().getStatus()) {
+				case 0:
+					app.image(shoes[2], shoeIconX, iconsY);
+					app.image(hearts[1], heartIconX, iconsY);
+				
+					break;
+				case 1:
+					app.image(balls[2], ballIconX, iconsY);
+					break;
+				case 2:
+					app.image(shoes[2], shoeIconX, iconsY);
+					break;
+				}
+
+			}
+			break;
+			
+		case 2:
+			if((controller.getLogic().getPowerUps().get(0) instanceof SpeedShoes &&
+					controller.getLogic().getPowerUps().get(1) instanceof HealthHeart) ||
+					(controller.getLogic().getPowerUps().get(1) instanceof SpeedShoes &&
+							controller.getLogic().getPowerUps().get(0) instanceof HealthHeart) ) {
+				app.image(hearts[0], heartIconX, iconsY);
+				app.image(shoes[0], shoeIconX, iconsY);
+				if(controller.getLogic().getDerrick().getStatus()==0) {
+					app.image(balls[2], ballIconX, iconsY);
+				}
+			}
+			
+			if((controller.getLogic().getPowerUps().get(0) instanceof SpeedShoes &&
+					controller.getLogic().getPowerUps().get(1) instanceof SpecialBasketball) ||
+					(controller.getLogic().getPowerUps().get(1) instanceof SpeedShoes &&
+							controller.getLogic().getPowerUps().get(0) instanceof SpecialBasketball) ) {
+				app.image(shoes[0], shoeIconX, iconsY);
+				app.image(balls[0], ballIconX, iconsY);
+				if(controller.getLogic().getDerrick().getStatus()==0) {
+					app.image(hearts[1], heartIconX, iconsY);
+				}
+			}
+			
+			if((controller.getLogic().getPowerUps().get(0) instanceof HealthHeart &&
+					controller.getLogic().getPowerUps().get(1) instanceof SpecialBasketball) ||
+					(controller.getLogic().getPowerUps().get(1) instanceof HealthHeart &&
+							controller.getLogic().getPowerUps().get(0) instanceof SpecialBasketball) ) {
+				app.image(hearts[0], heartIconX, iconsY);
+				app.image(balls[0], ballIconX, iconsY);
+				if(controller.getLogic().getDerrick().getStatus()==0) {
+					app.image(shoes[2], shoeIconX, iconsY);
+				}
+			}
+			
+			
+			break;
+			
+		case 3:
+			app.image(hearts[0], heartIconX, iconsY);
+			app.image(shoes[0], shoeIconX, iconsY);
+			app.image(balls[0], ballIconX, iconsY);
+			break;
+		}
+		
+		
 	}
 
 	public void setScrapTime(int scrapTime) {

@@ -126,13 +126,13 @@ public class Logic {
 				}
 
 				if(powerUps.get(i) instanceof SpeedShoes) {
-					speedTime=(int) app.millis()/1000;
+					speedTime= (int)Math.floor(app.millis()/1000) ;
 					derrick.setStatus(1);
 					getCurrentPlayer().setScore(getCurrentPlayer().getScore()+50);
 				}
 
 				if(powerUps.get(i) instanceof SpecialBasketball) {
-					invinciTime=(int) app.millis()/1000;
+					invinciTime= (int)Math.floor(app.millis()/1000) ;
 					derrick.setStatus(2);
 					getCurrentPlayer().setScore(getCurrentPlayer().getScore()+50);
 
@@ -167,25 +167,20 @@ public class Logic {
 		}
 	}
 
-	public void resetSpeed(int gameTime) {
-
+	public void resetSpeed(int allTime) {
+		int powerTime= allTime-speedTime;
 		if(derrick.getStatus()==1) {
-			int difTime=gameTime;
-			speedTime+=difTime;
-			if(speedTime>=5000) {
+			if(powerTime>5) {
 				derrick.setStatus(0);
 			}
 
 		}
-		
 	}
 
-	public void resetInvincibility(int gameTime) {
-
+	public void resetInvincibility(int allTime) {
+		int powerTime= allTime-invinciTime;
 		if(derrick.getStatus()==2) {
-			int difTime=gameTime;
-			invinciTime+=difTime;
-			if(invinciTime>=5000) {
+			if(powerTime>5) {
 				derrick.setStatus(0);
 			}
 
@@ -223,6 +218,10 @@ public class Logic {
 		
 	}
 
+
+	public ArrayList<PowerUp> getPowerUps() {
+		return powerUps;
+	}
 
 
 	public void reset() {
