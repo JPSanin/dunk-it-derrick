@@ -56,7 +56,7 @@ public class Player extends Thread implements Comparable<Player> {
 	@Override
 	public int compareTo(Player p1) {
 		
-		return score-p1.getScore();
+		return p1.getScore()-score;
 	}
 
 	

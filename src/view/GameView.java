@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import exceptions.WinException;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;
@@ -124,6 +125,15 @@ public class GameView {
 			new Thread(controller.getCurrentPlayer()).start();
 			lose=true;
 		}
+		
+		try {
+			controller.checkWin();
+		} catch (WinException we) {
+			controller.getCurrentPlayer().setGameTime(gameTime);
+			controller.getCurrentPlayer().setScore(controller.getCurrentPlayer().getScore()+500);
+			new Thread(controller.getCurrentPlayer()).start();
+			win=true;
+		}
 
 
 	}
@@ -158,6 +168,7 @@ public class GameView {
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x+1);
 			controller.setCatsPositions(1);
 			controller.setPowerUpsPositions(1);
+			controller.setWinPosition(1);
 
 		}
 		if(mapX<=-1600) {
@@ -167,6 +178,7 @@ public class GameView {
 			controller.getLogic().getDerrick().setPositionX(controller.getLogic().getDerrick().getPosition().x-1);
 			controller.setCatsPositions(-1);
 			controller.setPowerUpsPositions(-1);
+			controller.setWinPosition(-1);
 
 		}
 	}
@@ -184,7 +196,15 @@ public class GameView {
 		return lose;
 	}
 
-	
+	public void reset() {
+		controller.reset();
+		cloudsX1=0;
+		cloudsX2=1600;
+		mapX=0;
+		win=false;
+		lose=false;
+		
+	}
 	
 
 }

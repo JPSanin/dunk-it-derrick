@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.WinException;
 import model.Logic;
 import model.Player;
 import processing.core.PApplet;
@@ -118,6 +119,23 @@ public class Controller {
 	
 	public void resetInvincibility(int gameTime) {
 		logic.resetInvincibility(gameTime);
+	}
+
+
+	public void setWinPosition(int mapX) {
+		logic.setWinPosition(mapX);
+		
+	}
+
+
+	public void checkWin() throws WinException {
+		logic.checkWin();
+		
+	}
+
+
+	public void reset() {
+		logic.reset();
 	}
 	
 	

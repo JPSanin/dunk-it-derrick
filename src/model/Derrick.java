@@ -25,6 +25,7 @@ public class Derrick extends Thread{
 	private int floor;
 	private int height;
 	private int width;
+	private int winX;
 	private PVector position;
 	private PVector velocity;
 	private PVector acceleration;
@@ -56,6 +57,7 @@ public class Derrick extends Thread{
 		images[LEFT]=app.loadImage("../images/DerrickLeft.png");
 		images[JUMP_RIGHT]=app.loadImage("../images/DerrickJumpingRight.png");
 		images[JUMP_LEFT]=app.loadImage("../images/DerrickJumpingLeft.png");
+		winX=2200;
 		this.app = app;
 	}
 
@@ -116,9 +118,6 @@ public class Derrick extends Thread{
 				acceleration.x=0.5f;
 				displayImage=LEFT;
 			}
-			
-			
-			
 
 		}
 
@@ -147,6 +146,16 @@ public class Derrick extends Thread{
 		}
 	}
 
+	
+	public boolean checkWin() {
+		boolean win=false;
+		
+		if(position.x>winX && position.y>230) {
+			win=true;
+		}
+		
+		return win;
+	}
 
 	public void blocker(int mapX) {
 		int[][] blocks= {
@@ -307,6 +316,10 @@ public class Derrick extends Thread{
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public void setWinPos(int mapX) {
+		winX+=mapX;
 	}
 	
 	

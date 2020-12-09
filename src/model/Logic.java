@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import exceptions.WinException;
 import processing.core.PApplet;
 
 public class Logic {
@@ -26,23 +27,8 @@ public class Logic {
 
 	public Logic(PApplet app) {
 		this.app=app;
-		derrick= new Derrick(0,450,app);
 		players= new ArrayList<>();
-
-		cats= new ArrayList<>();
-		cats.add(new EnemyCat(150,200,50,250,app));
-		cats.add(new EnemyCat(650,450,500,750,app));
-		cats.add(new EnemyCat(1100,450,1050,1350,app));
-		cats.add(new EnemyCat(1750,450,1650,2100,app));
-		cats.add(new EnemyCat(2250,450,2150,2400,app));
-		cats.add(new EnemyCat(2350,450,2150,2400,app));
-		cats.add(new EnemyCat(2300,450,2150,2400,app));
-		powerUps= new ArrayList<>();
-		powerUps.add(new SpeedShoes(55,210,app));
-		powerUps.add(new HealthHeart(1250,450,app));
-		powerUps.add(new SpecialBasketball(2050,450,app));
-		speedTime=0;
-		invinciTime=0;
+		reset();
 		dc= new DateComparator();
 		nc= new NicknameComparator();
 		tc=new TimeComparator();
@@ -173,6 +159,13 @@ public class Logic {
 		}
 
 	}
+	
+	
+	public void checkWin() throws WinException {
+		if(derrick.checkWin() && powerUps.isEmpty()) {
+			throw new WinException();
+		}
+	}
 
 	public void resetSpeed(int gameTime) {
 
@@ -184,7 +177,7 @@ public class Logic {
 			}
 
 		}
-		//System.out.println(powerTime+", "+ derrick.getStatus());
+		
 	}
 
 	public void resetInvincibility(int gameTime) {
@@ -197,7 +190,7 @@ public class Logic {
 			}
 
 		}
-		System.out.println(invinciTime+", "+ derrick.getStatus());
+		
 	}
 
 	public void checkHit() {
@@ -225,8 +218,30 @@ public class Logic {
 	}
 
 
+	public void setWinPosition(int mapX) {
+		derrick.setWinPos(mapX);
+		
+	}
 
 
+
+	public void reset() {
+		derrick= new Derrick(0,450,app);
+		cats= new ArrayList<>();
+		cats.add(new EnemyCat(150,200,50,250,app));
+		cats.add(new EnemyCat(650,450,500,750,app));
+		cats.add(new EnemyCat(1100,450,1050,1350,app));
+		cats.add(new EnemyCat(1750,450,1650,2100,app));
+		cats.add(new EnemyCat(2250,450,2150,2400,app));
+		cats.add(new EnemyCat(2350,450,2150,2400,app));
+		cats.add(new EnemyCat(2300,450,2150,2400,app));
+		powerUps= new ArrayList<>();
+		powerUps.add(new SpeedShoes(55,210,app));
+		powerUps.add(new HealthHeart(1250,450,app));
+		powerUps.add(new SpecialBasketball(2050,450,app));
+		speedTime=0;
+		invinciTime=0;
+	}
 
 
 
