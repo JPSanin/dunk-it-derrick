@@ -37,6 +37,9 @@ public class Derrick extends Thread{
 	private int displayImage;
 
 	private PImage[] images;
+	private PImage[] speedImages;
+	private PImage[] invinciImages;
+	
 	private PApplet app;
 
 
@@ -52,11 +55,25 @@ public class Derrick extends Thread{
 		status=0;
 
 		displayImage=RIGHT;
+		
 		images= new PImage[4];
 		images[RIGHT]=app.loadImage("../images/DerrickRight.png");
 		images[LEFT]=app.loadImage("../images/DerrickLeft.png");
 		images[JUMP_RIGHT]=app.loadImage("../images/DerrickJumpingRight.png");
 		images[JUMP_LEFT]=app.loadImage("../images/DerrickJumpingLeft.png");
+		
+		speedImages= new PImage[4];
+		speedImages[RIGHT]=app.loadImage("../images/speedDerrickRight.png");
+		speedImages[LEFT]=app.loadImage("../images/speedDerrickLeft.png");
+		speedImages[JUMP_RIGHT]=app.loadImage("../images/speedDerrickJumpingRight.png");
+		speedImages[JUMP_LEFT]=app.loadImage("../images/speedDerrickJumpingLeft.png");
+		
+		invinciImages= new PImage[4];
+		invinciImages[RIGHT]=app.loadImage("../images/invinciDerrickRight.png");
+		invinciImages[LEFT]=app.loadImage("../images/invinciDerrickLeft.png");
+		invinciImages[JUMP_RIGHT]=app.loadImage("../images/invinciDerrickJumpingRight.png");
+		invinciImages[JUMP_LEFT]=app.loadImage("../images/invinciDerrickJumpingLeft.png");
+		
 		winX=2200;
 		this.app = app;
 	}
@@ -79,8 +96,14 @@ public class Derrick extends Thread{
 			acceleration.x=acceleration.x*-1;
 			velocity.x=velocity.x*-1;
 		}
-
-		app.image(images[displayImage], position.x, position.y);
+		if(status==0) {
+			app.image(images[displayImage], position.x, position.y);
+		}else if(status==SPEED){
+			app.image(speedImages[displayImage], position.x, position.y);	
+		}else if(status==INVINCIBLE) {
+			app.image(invinciImages[displayImage], position.x, position.y);
+		}
+		
 		position.add(velocity);
 		velocity.add(acceleration);
 
